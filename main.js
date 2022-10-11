@@ -135,7 +135,7 @@ function randomInt(min, max){
 
 function updateWins(){
     var wins_element = document.getElementById("wins")
-    if (wins == null){
+    if (isNaN(wins)){
         wins = 0
         localStorage.setItem("wins", wins);
     }

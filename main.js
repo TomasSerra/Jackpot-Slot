@@ -179,12 +179,24 @@ function randomInt(min, max){
 function updateWins(){
 	if (login == true){
     firebase.database().ref('Users/' + id + '/data/wins').once('value',(snap)=>{
-		wins =parseInt(snap.val())
-		wins_element.innerHTML = "Wins: " + wins.toString()
+		if (snap.val() != null){
+			wins =parseInt(snap.val())
+			wins_element.innerHTML = "Wins: " + wins.toString()
+		}
+		else{
+			wins = 0
+			firebase.database().ref('Users/' + id + '/data').set({score:0, wins:0});
+		}
 	});
 	firebase.database().ref('Users/' + id + '/data/score').once('value',(snap)=>{
-		score =parseInt(snap.val())
-		score_element.innerHTML = "Score: " + score.toString()
+		if (snap.val() != null){
+			score =parseInt(snap.val())
+			score_element.innerHTML = "Score: " + score.toString()
+		}else{
+			score = 0
+			firebase.database().ref('Users/' + id + '/data').set({score:0, wins:0});
+		}
+		
 	});
 	}
 }

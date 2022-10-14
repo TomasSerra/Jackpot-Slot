@@ -5,11 +5,44 @@ var win = new Audio("src/sounds/win.mp3");
 var lose = new Audio("src/sounds/lose.mp3");
 var audio = false;
 let status = document.getElementById("status")
-var info = true;
-var wins = parseInt(localStorage.getItem("wins"));
+let text = document.getElementById("text")
 let confe = document.querySelector("#my-canvas");
+var wins_element = document.getElementById("wins")
+var score_element = document.getElementById("score")
+var blinkId = 0;
+var blink = false
+var score = 0
+var wins = 0
+var id = 0
+
+const firebaseConfig = {
+	apiKey: "AIzaSyDrx_IMLOUSSRAKHSh3nT7HABzjPtv0bI4",
+	authDomain: "slot-game-8aed2.firebaseapp.com",
+	projectId: "slot-game-8aed2",
+	storageBucket: "slot-game-8aed2.appspot.com",
+	messagingSenderId: "1003739740685",
+	appId: "1:1003739740685:web:26755aeb50afdce1cc3344"
+  };
+  
+firebase.initializeApp(firebaseConfig);
+
+firebase.auth().onAuthStateChanged(user=>{
+	if(user){
+	  login = true;
+	  id = firebase.auth().currentUser.uid;
+	  updateWins()
+	}
+	else{
+	  login = false;
+	  score_element.innerHTML = "Score: 0"
+	  wins_element.innerHTML = "Wins: 0"
+	}
+})
 
 function doSlot(){
+	if(blinkId != 0){
+		clearInterval(blinkId);
+	}
 	confe.classList.remove("active")
 	if (doing){return null;}
 	doing = true;
@@ -22,7 +55,8 @@ function doSlot(){
 	var i2 = 0;
 	var i3 = 0;
 	var sound = 0
-	status.innerHTML = "SPINNING..."
+	text.style = "visibility: visible"
+	text.innerHTML = "SPINNING..."
     status.style.background = "#606060"
     document.getElementById("body").style.background="#0f0f0f";
 	slot1 = setInterval(spin1, 50);
@@ -79,7 +113,6 @@ function testWin(){
 	var slot1 = document.getElementById("slot1").className
 	var slot2 = document.getElementById("slot2").className
 	var slot3 = document.getElementById("slot3").className
-    var wins_element = document.getElementById("wins")
 
 	if (((slot1 == slot2 && slot2 == slot3) ||
 		(slot1 == slot2 && slot3 == "a7") ||
@@ -87,15 +120,26 @@ function testWin(){
 		(slot2 == slot3 && slot1 == "a7") ||
 		(slot1 == slot2 && slot1 == "a7") ||
 		(slot1 == slot3 && slot1 == "a7") ||
-		(slot2 == slot3 && slot2 == "a7") ) && !(slot1 == slot2 && slot2 == slot3 && slot1=="a7")){
-		status.innerHTML = "BIG WIN!";
-        status.style.background = "#3e962aa9"
+		(slot2 == slot3 && slot2 == "a7") )){
+		if((slot1 == slot2 && slot2 == slot3)&&(slot1!="a7" && slot2!="a7" && slot3!="a7")){
+			text.innerHTML = "BIG WIN!";
+			addWin(500)
+		}
+		else if((slot1=="a7" && slot2=="a7" && slot3=="a7")){
+			text.innerHTML = "JACKPOT!";
+			addWin(1000)
+		}
+		else{
+			text.innerHTML = "YOU WIN!";
+			addWin(100)
+		}
+        status.style.background = "#3e962aa9";
         document.getElementById("body").style.background="#162511";
-        addWin()
 		confeti()
 		win.play();
+		blinkId = setInterval(blinkText, 500);
 	}else{
-		status.innerHTML = "YOU LOSE!"
+		text.innerHTML = "YOU LOSE!"
         status.style.background = "#962a2aa9"
         document.getElementById("body").style.background="#251111";
 		lose.play();
@@ -104,7 +148,6 @@ function testWin(){
 }
 
 function toggleAudio(){
-    updateWins()
 	if (!audio){
 		audio = !audio;
 		for (var x of spin){
@@ -134,19 +177,23 @@ function randomInt(min, max){
 }
 
 function updateWins(){
-    var wins_element = document.getElementById("wins")
-    if (isNaN(wins)){
-        wins = 0
-        localStorage.setItem("wins", wins);
-    }
-    wins_element.innerHTML = "Wins: " + wins
+	if (login == true){
+    firebase.database().ref('Users/' + id + '/data/wins').once('value',(snap)=>{
+		wins =parseInt(snap.val())
+		wins_element.innerHTML = "Wins: " + wins.toString()
+	});
+	firebase.database().ref('Users/' + id + '/data/score').once('value',(snap)=>{
+		score =parseInt(snap.val())
+		score_element.innerHTML = "Score: " + score.toString()
+	});
+	}
 }
 
-function addWin(){
-    var wins_element = document.getElementById("wins")
-    wins+=1
-    localStorage.setItem("wins", wins);
-    wins_element.innerHTML = "Wins: " + wins
+function addWin(addScore){
+	if (login == true){
+		firebase.database().ref('Users/' + id + '/data').set({score:score+addScore, wins:wins+1});
+		updateWins()
+	}
 }
 
 function confeti(){
@@ -154,4 +201,14 @@ function confeti(){
 	var confetti = new ConfettiGenerator(confettiSettings);
 	confetti.render();
 	confe.classList.add("active")
+}
+
+function blinkText(){
+	if(blink){
+		text.style = "visibility: hidden"
+	}
+	else{
+		text.style = "visibility: visible"
+	}
+	blink = !blink
 }

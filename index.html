@@ -9,8 +9,34 @@
 </head>
 <html>
 <body onload="toggleAudio()" id="body">
+	<div class="usuario" id="usuarioBox">
+		<p id="userName"></p>
+		<div class="login-buttons">
+		  <div id="loginButton">
+			<button id="login">Log in</button>
+		  </div>
+		  <div id="dashboard">
+			<button id="logout">Log out</button>
+		  </div>
+		</div>
+	</div>
+	<div class="stats">
+		<table>
+			<td>
+				<tr>
+					<h1 class="stats-title">STATS</h1>
+				</tr>
+				<tr>
+					<div class="stats-group">
+						<h3 id="score">Score: 0</h3>
+						<h3 id="wins">Wins: 0</h3>
+					</div>
+				</tr>
+			</td>
+		</table>
+	</div>
 <main>
-	<section id="status">WELCOME!</section>
+	<section id="status"><h3 id="text">WELCOME!</h3></section>
 	<section id="Slots">
 		<div id="slot1" class="a1"></div>
 		<div id="slot2" class="a1"></div>
@@ -19,11 +45,15 @@
 	<div class="bottom">
 		<img src="src/icons/audioOn.png" id="audio" class="option" onclick="toggleAudio()" />
 		<section onclick="doSlot()" id="Gira">SPIN</section>
-		<h3 id="wins"></h3> 
+		 
 	</div>
 	<canvas id="my-canvas"></canvas>
 </main>
+<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
 <script src="./main.js"></script>
+<script src="./auth.js"></script>
 <script src="./confetti.js"></script>
 </body>
 </html>

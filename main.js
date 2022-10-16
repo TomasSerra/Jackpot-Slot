@@ -31,7 +31,8 @@ firebase.auth().onAuthStateChanged(user=>{
 	if(user){
 	  login = true;
 	  id = firebase.auth().currentUser.uid;
-	  userName = `${user.displayName}`
+	  userName = user.displayName
+	  console.log(userName)
 	  updateWins()
 	}
 	else{

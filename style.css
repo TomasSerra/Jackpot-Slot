@@ -22,7 +22,7 @@ main{
 	padding-bottom: 20px;
 	padding-left: 15px;
 	padding-right: 15px;
-	margin-left: calc((100% - 580px) / 2);
+	margin-left: calc((100% - 640px) / 2);
 	width: 550px;
 }
 section#status{
@@ -181,7 +181,7 @@ section#options{
 	flex-wrap: wrap;
 }
 
-#score{
+#score, #wins{
     font-size: 20px;
     background-color: #2c2c2c;
     padding: 2% 4%;
@@ -191,15 +191,42 @@ section#options{
 	margin: auto;
 	margin-top: 10px;
 }
-#wins{
-    font-size: 20px;
+
+.leaderboard{
+	width:25%;
+	top: 20px;
+	left: auto;
+	right: 30px;
+	border-radius: 20px;
+	position: absolute;
+	background-color: #606060;
+	min-width: 290px;
+	height: 575px
+}
+
+.leader-title{
+	color: #ffffff;
+	background-color: #d8a114;
+	width: fit-content;
+	padding: 10px 50px;
+	border-radius: 20px;
+	text-align: center;
+	margin: auto;
+	margin-top: 10px;
+}
+
+.scores{
+	font-size: 20px;
     background-color: #2c2c2c;
-    padding: 2% 4%;
+    padding: 2% 2%;
     border-radius: 20px;
     margin-bottom: 10px;
-    margin: auto;
     color: #FFFFFF;
+	margin: auto;
 	margin-top: 10px;
+	margin-right: 40px;
+	margin-left: 40px;
+	text-align: center;
 }
 
 .a1{

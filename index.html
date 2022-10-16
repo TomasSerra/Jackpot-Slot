@@ -8,7 +8,7 @@
 	<link rel="stylesheet" type="text/css" href="style.css" media="screen"/>
 </head>
 <html>
-<body onload="toggleAudio()" id="body">
+<body onload="main()" id="body">
 	<div class="usuario" id="usuarioBox">
 		<p id="userName"></p>
 		<div class="login-buttons">
@@ -49,11 +49,34 @@
 	</div>
 	<canvas id="my-canvas"></canvas>
 </main>
+<div class="leaderboard">
+	<table>
+		<td>
+			<tr>
+				<h1 class="leader-title">Leaderboard</h1>
+			</tr>
+			<tr>
+				<div class="leader-group">
+					<h3 class="scores" id="score1"></h3>
+					<h3 class="scores" id="score2"></h3>
+					<h3 class="scores" id="score3"></h3>
+					<h3 class="scores" id="score4"></h3>
+					<h3 class="scores" id="score5"></h3>
+					<h3 class="scores" id="score6"></h3>
+					<h3 class="scores" id="score7"></h3>
+					<h3 class="scores" id="score8"></h3>
+					<h3 class="scores" id="score9"></h3>
+					<h3 class="scores" id="score10"></h3>
+				</div>
+			</tr>
+		</td>
+	</table>
+</div>
 <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+<script src="./confetti.js"></script>
 <script src="./main.js"></script>
 <script src="./auth.js"></script>
-<script src="./confetti.js"></script>
 </body>
 </html>

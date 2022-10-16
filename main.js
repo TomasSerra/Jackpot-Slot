@@ -9,6 +9,7 @@ let text = document.getElementById("text")
 let confe = document.querySelector("#my-canvas");
 var wins_element = document.getElementById("wins")
 var score_element = document.getElementById("score")
+var userName = document.getElementById("userName").textContent
 var blinkId = 0;
 var blink = false
 var score = 0
@@ -30,6 +31,7 @@ firebase.auth().onAuthStateChanged(user=>{
 	if(user){
 	  login = true;
 	  id = firebase.auth().currentUser.uid;
+	  userName = `${user.displayName}`
 	  updateWins()
 	}
 	else{
@@ -147,6 +149,12 @@ function testWin(){
 	doing = false;
 }
 
+function main()
+{
+	toggleAudio()
+	leaderboardScores()
+}
+
 function toggleAudio(){
 	if (!audio){
 		audio = !audio;
@@ -176,7 +184,7 @@ function randomInt(min, max){
 	return Math.floor((Math.random() * (max-min+1)) + min);
 }
 
-function updateWins(){
+function updateWins(){	
 	if (login == true){
     firebase.database().ref('Users/' + id + '/data/wins').once('value',(snap)=>{
 		if (snap.val() != null){
@@ -195,6 +203,7 @@ function updateWins(){
 		}else{
 			score = 0
 			firebase.database().ref('Users/' + id + '/data').set({score:0, wins:0});
+			firebase.database().ref('scores/' + userName + '-' + id).set({score: 0});
 		}
 		
 	});
@@ -204,6 +213,7 @@ function updateWins(){
 function addWin(addScore){
 	if (login == true){
 		firebase.database().ref('Users/' + id + '/data').set({score:score+addScore, wins:wins+1});
+		firebase.database().ref('scores/' + userName + '-' + id).set({score: score+addScore});
 		updateWins()
 	}
 }
@@ -223,4 +233,22 @@ function blinkText(){
 		text.style = "visibility: visible"
 	}
 	blink = !blink
+}
+
+function leaderboardScores(){
+	var query = firebase.database().ref('/scores').orderByChild('score').limitToLast(10)
+	var leader_scores = new Array();
+	query.once('value', function (snapshot) {
+        snapshot.forEach(function (childSnapshot) {
+			var name = childSnapshot.key.split("-")[0]
+            leader_scores.push([name, childSnapshot.val()["score"]])
+        });
+
+		var leaderLines = []
+		leader_scores = leader_scores.reverse()
+		for(var i=0; i<10; i++){
+			leaderLines[i] = document.getElementById("score"+(i+1).toString())
+			leaderLines[i].innerHTML = leader_scores[i][0] + ": " + leader_scores[i][1]
+		}
+    });
 }

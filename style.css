@@ -205,6 +205,10 @@ section#options{
 	height: calc(fit-content+20px);
 }
 
+.leader-group{
+	margin-top: 20px;
+}
+
 .leader-title{
 	color: #ffffff;
 	background-color: #d8a114;

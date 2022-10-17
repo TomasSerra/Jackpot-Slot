@@ -41,7 +41,7 @@ section#Slots{
 	background-color: #FAFAFA;
     height: 200px;
 	border-style: solid;
-	border-color: #606060;
+	border-color: #9e9e9e;
 	border-width: 10px;
 }
 section#Gira{
@@ -53,11 +53,14 @@ section#Gira{
 	font-size: 25px;
     width: 100px;
     height: 100px;
-    margin-left: 31%;
+    margin-left: 29%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-weight: bold;
+	border-style: solid;
+	border-color: #791f28;
+	border-width: 8px;
 }
 section#Gira:hover{
 	background-color: #961522;

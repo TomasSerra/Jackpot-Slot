@@ -240,16 +240,16 @@ function leaderboardScores(){
 	var query = firebase.database().ref('/scores').orderByChild('score').limitToLast(10)
 	var leader_scores = new Array();
 	query.once('value', function (snapshot) {
-        snapshot.forEach(function (childSnapshot) {
+		snapshot.forEach(function (childSnapshot) {
 			var name = childSnapshot.key.split("-")[0]
-            leader_scores.push([name, childSnapshot.val()["score"]])
-        });
+			leader_scores.push([name, childSnapshot.val()["score"]])
+		});
 
 		var leaderLines = []
 		leader_scores = leader_scores.reverse()
 		for(var i=0; i<10; i++){
 			leaderLines[i] = document.getElementById("score"+(i+1).toString())
-			leaderLines[i].innerHTML = leader_scores[i][0] + ": " + leader_scores[i][1]
+			leaderLines[i].innerText = leader_scores[i][0] + ": " + leader_scores[i][1]
 		}
-    });
+	});
 }

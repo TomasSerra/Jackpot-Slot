@@ -24,7 +24,7 @@
 		<table>
 			<td>
 				<tr>
-					<h1 class="stats-title">STATS</h1>
+					<h1 class="stats-title">STATS 📊</h1>
 				</tr>
 				<tr>
 					<div class="stats-group">
@@ -53,20 +53,26 @@
 	<table>
 		<td>
 			<tr>
-				<h1 class="leader-title">LEADERBOARD</h1>
+				<h1 class="leader-title">LEADERBOARD 🏆</h1>
 			</tr>
 			<tr>
-				<div class="leader-group">
-					<h3 class="scores" id="score1"></h3>
-					<h3 class="scores" id="score2"></h3>
-					<h3 class="scores" id="score3"></h3>
-					<h3 class="scores" id="score4"></h3>
-					<h3 class="scores" id="score5"></h3>
-					<h3 class="scores" id="score6"></h3>
-					<h3 class="scores" id="score7"></h3>
-					<h3 class="scores" id="score8"></h3>
-					<h3 class="scores" id="score9"></h3>
-					<h3 class="scores" id="score10"></h3>
+				<div id="leader-group">
+					<div class="first">
+						<h3 class="leader-num" style="background-color: #d8a114;">1º</h3><h3 id="score1">Dout: 4600</h3>
+					</div>
+					<div class="second">
+						<h3 class="leader-num" style="background-color: #a6a6a6;">2º</h3><h3 id="score2">Pedro: 2500</h3>
+					</div>
+					<div class="third">
+						<h3 class="leader-num" style="background-color: #7a3619;">3º</h3><h3 id="score3">Player395: 2300</h3>
+					</div>
+					<h3 class="scores" id="score4">The Joker: 2100</h3>
+					<h3 class="scores" id="score5">Bob: 1900</h3>
+					<h3 class="scores" id="score6">xXTonyXx: 1500</h3>
+					<h3 class="scores" id="score7">Santiago: 1300</h3>
+					<h3 class="scores" id="score8">Alexia Mine: 900</h3>
+					<h3 class="scores" id="score9">Mike: 500</h3>
+					<h3 class="scores" id="score10">Alex: 200</h3>
 				</div>
 			</tr>
 		</td>
@@ -76,7 +82,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
 <script src="./confetti.js"></script>
-<script src="./main.min.js"></script> <!-- To Uglify: https://skalman.github.io/UglifyJS-online/-->
+<script src="./main.js"></script> <!-- To Uglify: https://skalman.github.io/UglifyJS-online/-->
 <script src="./auth.js"></script>
 </body>
 </html>

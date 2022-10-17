@@ -42,6 +42,12 @@ firebase.auth().onAuthStateChanged(user=>{
 	}
 })
 
+window.addEventListener("keydown", (evento) => {
+	if (evento.code == "Space") {
+	  doSlot()
+	}
+});
+
 function doSlot(){
 	if(blinkId != 0){
 		clearInterval(blinkId);
